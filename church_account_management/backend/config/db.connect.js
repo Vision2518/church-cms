@@ -1,5 +1,10 @@
-PORT=5000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=1234567890
-DB_NAME="church_account"
+import mysql from "mysql2/promise";
+import dotenv from "dotenv";
+dotenv.config();
+const db = await mysql.createConnection({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
+});
+export default db;
