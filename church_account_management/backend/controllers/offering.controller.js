@@ -250,9 +250,8 @@ export const getOfferings = async (req, res) => {
       FROM church_offering
       ${whereSQL}
       ORDER BY ${sortColumn} ${sortDir}
-      LIMIT ? OFFSET ?
+      LIMIT ${pageSize} OFFSET ${offset}
     `;
-    const recordsParams = [...params, pageSize, offset];
 
     // Count query
     const countSQL = `
@@ -261,7 +260,7 @@ export const getOfferings = async (req, res) => {
       ${whereSQL}
     `;
 
-    const [records] = await db.execute(recordsSQL, recordsParams);
+    const [records] = await db.execute(recordsSQL, params);
     const [countRows] = await db.execute(countSQL, params);
 
     const totalRows = Number(countRows?.[0]?.totalRows || 0);

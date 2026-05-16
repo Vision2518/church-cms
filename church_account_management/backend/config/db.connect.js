@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Fail fast so missing env vars don't become "''@localhost"
-const required = ["DB_host", "DB_USER", "DB_PASSWORD", "DB_NAME"];
+const required = ["DB_HOST", "DB_USER", "DB_PASSWORD", "DB_NAME"];
 const missing = required.filter((k) => !process.env[k] || String(process.env[k]).trim() === "");
 
 if (missing.length) {
@@ -12,12 +12,12 @@ if (missing.length) {
   throw new Error(
     `Missing required DB env vars: ${missing.join(
       ", ",
-    )}. Ensure a .env file exists and contains DB_host, DB_USER, DB_PASSWORD, DB_NAME (and optionally DB_PORT).`,
+    )}. Ensure a .env file exists and contains DB_HOST, DB_USER, DB_PASSWORD, DB_NAME (and optionally DB_PORT).`,
   );
 }
 
 const pool = mysql.createPool({
-  host: process.env.DB_host,
+  host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
